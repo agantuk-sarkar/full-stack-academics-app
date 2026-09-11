@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./index.js" type="module"></script>
+  </head>
+  <body>
+    <!-- Nav Bar -->
+    <nav class="homePage-navBar">
+      <!-- logo icon div -->
+      <div class="logo-icon-div">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrvCR9mdPzEhLAV6wtDgp_aTTn5p5s8YroXE-sRfLUojRYktZteoM6vQnG&s=10"
+        />
+      </div>
+      <!-- name of the instituition -->
+      <h4 class="eduplus-academy-header">EduPlus Academy</h4>
+      <!-- Home and academy buttons -->
+      <div class="home-and-academics-container">
+        <a class="home-button" href="./index.html">Home</a>
+        <a class="academics-button" href="./academics.html">Academics</a>
+      </div>
+      <!-- login and signup container -->
+      <div class="login-and-signup-container">
+        <a class="login-header" href="./login.html">Login</a>
+        <a class="signup-header" href="./signup.html">Sign Up</a>
+      </div>
+      <!-- logged in user and logout button container -->
+      <div class="logged-in-user-container">
+        <span class="logged-in-user-name"></span>
+        <button class="logout-button">Logout</button>
+      </div>
+    </nav>
+    <!-- main login container -->
+    <main class="loginUser-container">
+      <hr />
+      <h3>Login User</h3>
+      <!--  login email -->
+      <div class="email-container">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="Enter your Email"
+          required
+        />
+      </div>
+      <br />
+      <!-- login password -->
+      <div class="password-container">
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Enter your Password"
+          required
+        />
+      </div>
+      <br />
+      <!-- login button -->
+      <button class="loginButton">Login</button>
+      <br />
+      <!-- success or failure message -->
+      <p class="loginMessageStatus"></p>
+    </main>
+  </body>
+</html>

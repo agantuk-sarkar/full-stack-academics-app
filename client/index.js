@@ -397,7 +397,7 @@ function userProfiles(userArray) {
           if (!response.ok) {
             throw new Error(data.message || "Failed to delete user");
           }
-          // relaoding the user profile to show users which are not deleted
+          // reloading the user profile to show users which are not deleted
           showUserProfile();
         } catch (error) {
           console.log("error:", error.message);

@@ -1,26 +1,30 @@
-// getting the loggedIn user from local storage
-const logged_in_user = JSON.parse(localStorage.getItem("loggedInUser"));
+// getting the html elements from role.html into js
+const roles_element = document.querySelector(".roles-button");
 
-// getting the admin html elements into js
-const admin_user_container = document.querySelector(".admin-user-container");
+const assigned_users_main_container = document.querySelector(
+  ".assigned-userProfile-mainContainer",
+);
 const view_details_modal = document.querySelector(".view-details-modal");
+
 const edit_details_modal = document.querySelector(".edit-details-modal");
+
 const delete_details_modal = document.querySelector(".delete-details-modal");
+
 const modal_backdrop = document.querySelector(".modal-backdrop");
 
-// getting the html login, signup, logout and loggedIn user elements into js from navBar
-const login_and_signup_container = document.querySelector(
-  ".login-and-signup-container",
-);
 const logged_in_user_container = document.querySelector(
   ".logged-in-user-container",
 );
 const logged_in_user_name = document.querySelector(".logged-in-user-name");
+
 const logout_button = document.querySelector(".logout-button");
 
-// creating user profile on academics.html page by fetching the users API sent from server
-function userProfiles(userArray) {
-  admin_user_container.innerHTML = "";
+// getting the loggedIn user from local storage
+const logged_in_user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+// creating user profile on roles.html page by fetching the users API sent from roles routes
+function userRolesProfiles(userArray) {
+  assigned_users_main_container.innerHTML = "";
   userArray?.forEach((user) => {
     const mainDiv = document.createElement("div");
     mainDiv.classList.add("profile-mainDiv");
@@ -29,7 +33,7 @@ function userProfiles(userArray) {
     imageDiv.classList.add("image-div");
 
     const imageTag = document.createElement("img");
-    // imageTag.src = `http://localhost:5500/uploads/${user.image}`;
+
     imageTag.src = `../server/fileUploads/${user.image}`;
 
     imageDiv.append(imageTag);
@@ -170,7 +174,10 @@ function userProfiles(userArray) {
           teacher_option.textContent = "Teacher";
           role_input.append(student_option, teacher_option);
           role_input.value = userEditResponse.role;
-
+          //   check if teacher is logged in then disable the role select tag
+          if (logged_in_user.role === "teacher") {
+            role_input.disabled = true;
+          }
           // cancel button
           const cancel_button = document.createElement("button");
           //   click event for cancel button
@@ -256,7 +263,7 @@ function userProfiles(userArray) {
           if (!response.ok) {
             throw new Error(data.message || "Failed to delete user");
           }
-          // relaoding the user profile to show users which are not deleted
+          // reloading the user profile to show users which are not deleted
           showUserProfile();
         } catch (error) {
           console.log("error:", error.message);
@@ -278,50 +285,20 @@ function userProfiles(userArray) {
       );
     });
 
-    // Change the role of the user to teacher. Only Admin can do it
-    const role_button = document.createElement("button");
-    role_button.classList.add("role-button");
-    role_button.textContent = "Update Role To Teacher";
-
-    // click event for role change button
-    role_button.addEventListener("click", async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5500/admin/${user.id}/role`,
-          {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({
-              role: "teacher",
-            }),
-          },
-        );
-        const role_response = await response.json();
-
-        if (!role_response.ok) {
-          throw new Error("Role modification failed");
-        }
-      } catch (error) {
-        console.log("error:", error.message);
-      }
-    });
-
     mainDiv.append(
       imageDiv,
       nameTag,
       viewDetails_button,
       edit_button,
       delete_button,
-      role_button,
     );
-    admin_user_container.append(mainDiv);
+
+    assigned_users_main_container.append(mainDiv);
   });
 }
 
 // function to check for loggedIn user and display in NavBar accordingly
-function checkUserlogin() {
+function checkAssignedUserlogin() {
   const logged_in_User_from_local_storage =
     localStorage.getItem("loggedInUser");
 
@@ -329,10 +306,11 @@ function checkUserlogin() {
   if (logged_in_User_from_local_storage) {
     const user = JSON.parse(logged_in_User_from_local_storage);
 
-    // make the login and signUp container display to none
-    if (login_and_signup_container) {
-      login_and_signup_container.style.display = "none";
+    // check the user role. On the basis of teacher role and admin role show the roles tab
+    if (user.role === "teacher" || user.role === "admin") {
+      roles_element.style.display = "flex";
     }
+
     // make the loggedIn user container display to flex, as it will have both loggedIn username and logout button
     if (logged_in_user_container) {
       logged_in_user_container.style.display = "flex";
@@ -343,15 +321,13 @@ function checkUserlogin() {
     }
   } else {
     // check if the loggedIn user doesn't exists in Local Storage
-    if (login_and_signup_container) {
-      login_and_signup_container.style.display = "flex";
-    }
     if (logged_in_user_container) {
       logged_in_user_container.style.display = "none";
     }
+    roles_element.style.display = "none";
   }
 }
-checkUserlogin();
+checkAssignedUserlogin();
 
 // click event for logout button. It will redirect to index.html page which is the home page
 if (logout_button) {
@@ -363,19 +339,21 @@ if (logout_button) {
   });
 }
 
-// function to show all the userProfiles in grid
-async function showUserProfile() {
+// function to get users for Roles tab
+async function showAssignedUsers() {
   try {
-    const response = await fetch("http://localhost:5500/admin/users");
+    const response = await fetch(
+      `http://localhost:5500/roles/${logged_in_user.id}/users`,
+    );
 
     if (response.ok) {
       const data = await response.json();
-      userProfiles(data);
+      userRolesProfiles(data);
     } else {
-      throw new Error(data.message || "Error loading User profiles");
+      throw new Error("User not found");
     }
   } catch (error) {
-    console.log("error:", error);
+    console.log("error:", error.message);
   }
 }
-showUserProfile();
+showAssignedUsers();

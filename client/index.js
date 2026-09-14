@@ -34,6 +34,9 @@ const logout_button = document.querySelector(".logout-button");
 // getting the loggedIn user from local storage
 const logged_in_user = JSON.parse(localStorage.getItem("loggedInUser"));
 
+// getting the roles button element from roles.html page
+const roles_element = document.querySelector(".roles-button");
+
 // show status message if all fields are present or not
 function showMessage(element, message, isError = false) {
   element.textContent = message;
@@ -146,7 +149,7 @@ if (loginButton) {
       // check if the admin loggedIn or not, if yses then route to admin.html
       if (data.user.role === "admin") {
         localStorage.setItem("loggedInUser", JSON.stringify(data.user));
-        window.location.href = "./admin.html";
+        window.location.href = "./roles.html";
         return;
       }
 
@@ -451,6 +454,11 @@ function checkUserlogin() {
     if (login_and_signup_container) {
       login_and_signup_container.style.display = "none";
     }
+    // check the user role. On the basis of teacher role and admin role show the roles tab
+    if (user.role === "teacher" || user.role === "admin") {
+      roles_element.style.display = "flex";
+    }
+
     // make the loggedIn user container display to flex, as it will have both loggedIn username and logout button
     if (logged_in_user_container) {
       logged_in_user_container.style.display = "flex";
@@ -467,6 +475,7 @@ function checkUserlogin() {
     if (logged_in_user_container) {
       logged_in_user_container.style.display = "none";
     }
+    roles_element.style.display = "none";
   }
 }
 checkUserlogin();
@@ -482,9 +491,11 @@ if (logout_button) {
 }
 
 // function to show all the userProfiles in grid
-async function showUserProfile() {
+async function showUserProfile(loggedInUserId) {
   try {
-    const response = await fetch("http://localhost:5500/academics/users");
+    const response = await fetch(
+      `http://localhost:5500/academics/${loggedInUserId}/users`,
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -496,4 +507,4 @@ async function showUserProfile() {
     console.log("error:", error);
   }
 }
-showUserProfile();
+showUserProfile(logged_in_user.id);

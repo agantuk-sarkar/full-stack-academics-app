@@ -62,6 +62,7 @@ router.post("/register", upload.single("register-image"), (req, res) => {
     role: "student",
     image: req.file.originalname,
     assignedTeacherId: default_teacher ? default_teacher.id : null,
+    password: password,
   };
 
   //   assign the students id into teacher's object

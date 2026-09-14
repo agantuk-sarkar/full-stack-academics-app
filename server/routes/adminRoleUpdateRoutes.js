@@ -49,8 +49,17 @@ router.put("/admin/:id/role", upload.single("imageFile"), (req, res) => {
   }
 
   // update the role. This will update the user object
-  user.role = role;
-  // making thr data array into JSON string
+  // user.role = role;
+
+  // check if the teacher role exists, then add the assignedStudents array
+  if (role === "teacher") {
+    if (user.role === "student") {
+      user.assignedStudents = [];
+      delete user.assignedTeacherId;
+    }
+    user.role = role;
+  }
+  // making the data array into JSON string
   writeDatabase(data);
   // success message
   return res.status(200).json({

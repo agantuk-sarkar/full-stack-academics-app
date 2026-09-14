@@ -118,6 +118,23 @@ body:not(:has(main))::after {
   color: #2563eb;
   background-color: #eff6ff;
 }
+
+.roles-button {
+  display: none;
+  color: #475569;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.65rem 0.9rem;
+  border-radius: 8px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.roles-button:hover {
+  color: #2563eb;
+  background-color: #eff6ff;
+}
+
 .login-and-signup-container {
   display: flex;
   align-items: center;
@@ -341,6 +358,7 @@ body:not(:has(main))::after {
   text-align: center;
 }
 .userProfile-mainContainer,
+.assigned-userProfile-mainContainer,
 .admin-user-container {
   width: min(94%, 1180px);
   margin: 3rem auto;
@@ -846,6 +864,7 @@ body:not(:has(main))::after {
   }
 
   .userProfile-mainContainer,
+  .assigned-userProfile-mainContainer,
   .admin-user-container {
     margin: 2rem auto;
     grid-template-columns: 1fr;

@@ -2,12 +2,18 @@ import express from "express";
 import cors from "cors";
 
 import userAuthRoutes from "./routes/auth.routes.js";
+
 import updateUserRoutes from "./routes/updateUser.routes.js";
-import readUserDataWithoutAdminRoutes from "./routes/readUserDataWithoutAdmin.routes.js";
-import readAllUsersRoutes from "./routes/readAllUsers.routes.js";
+
+import readUserData from "./routes/readUserData.routes.js";
+
 import getUserByIdRoutes from "./routes/getUserByIdRoutes.js";
+
 import adminRoleUpdateRoutes from "./routes/adminRoleUpdateRoutes.js";
+
 import deleteUserByIdRoutes from "./routes/deleteUserByIdRoutes.js";
+
+import rolesRoutes from "./routes/roles.routes.js";
 
 const app = express();
 
@@ -24,20 +30,21 @@ app.get("/", (req, res) => {
 
 // Register and Login user using POST method
 app.use("/", userAuthRoutes);
-// // PUT request to update name, role and image using route params, req.body, req.file object coming from formData
+
+// PUT request to update name, role and image using route params, req.body, req.file object coming from formData
 app.use("/", updateUserRoutes);
 
-// Read the data from database and send it to client in response using GET method. This will provide user data without Admin role
-app.use("/", readUserDataWithoutAdminRoutes);
-
-// read all the users from database as this will be used by Admin only. This will provide both Admin and other roles
-app.use("/", readAllUsersRoutes);
+// Read the data from database and send it to client in response using GET method. This will only provide the logged In user profile
+app.use("/", readUserData);
 
 // Get user by ID API
 app.use("/", getUserByIdRoutes);
 
 // admin will request for this role Api and below code will give response with the updated array and updated role
 app.use("/", adminRoleUpdateRoutes);
+
+// Get users for Roles tab
+app.use("/", rolesRoutes);
 
 // // Delete a user by using the particular user id
 app.use("/", deleteUserByIdRoutes);

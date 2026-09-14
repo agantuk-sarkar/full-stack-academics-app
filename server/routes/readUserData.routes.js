@@ -23,16 +23,17 @@ const upload = multer({
   },
 });
 
-// Read the data from database and send it to client in response using GET method. This will provide user data without Admin role
-router.get("/academics/users", (req, res) => {
+// Read the data from database and send it to client in response using GET method. This will only provide the logged In user profile
+router.get("/academics/:id/users", (req, res) => {
+  const { id } = req.params;
   const users = readDatabase();
 
-  const users_without_admin = users.filter((user) => {
-    if (user.role !== "admin") {
+  const logged_in_user_profile = users.filter((user) => {
+    if (user.id === id) {
       return user;
     }
   });
-  return res.status(200).json(users_without_admin);
+  return res.status(200).json(logged_in_user_profile);
 });
 
 export default router;

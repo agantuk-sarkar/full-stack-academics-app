@@ -146,7 +146,7 @@ if (loginButton) {
       }
 
       showMessage(loginMessageStatus, data.message || "Login Successful");
-      // check if the admin loggedIn or not, if yses then route to admin.html
+      // check if the admin loggedIn or not, if yes then route to roles.html
       if (data.user.role === "admin") {
         localStorage.setItem("loggedInUser", JSON.stringify(data.user));
         window.location.href = "./roles.html";
@@ -174,7 +174,6 @@ function userProfiles(userArray) {
     imageDiv.classList.add("image-div");
 
     const imageTag = document.createElement("img");
-    // imageTag.src = `http://localhost:5500/uploads/${user.image}`;
     imageTag.src = `../server/fileUploads/${user.image}`;
 
     imageDiv.append(imageTag);
@@ -337,7 +336,7 @@ function userProfiles(userArray) {
 
             try {
               const response = await fetch(
-                `http://localhost:5500/users/${user.id}`,
+                `http://localhost:5500/roles/${user.id}`,
                 {
                   method: "PUT",
                   body: formData,

@@ -193,6 +193,8 @@ function userRolesProfiles(userArray) {
             const formData = new FormData();
             // add updated name
             formData.append("name", name_input.value);
+            // add updated email
+            formData.append("email", email_input.value);
             // add updated role
             formData.append("role", role_input.value);
             // add updated image
@@ -200,7 +202,7 @@ function userRolesProfiles(userArray) {
 
             try {
               const response = await fetch(
-                `http://localhost:5500/users/${user.id}`,
+                `http://localhost:5500/roles/${user.id}`,
                 {
                   method: "PUT",
                   body: formData,

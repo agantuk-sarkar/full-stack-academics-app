@@ -1,1 +1,41 @@
-[{"id":"admin-001","name":"Admin","email":"admin@gmail.com","role":"admin","image":"admin.jpeg","password":"admin123"},{"id":"199c8922-e1d9-4249-ad1e-dd68a273ef0d","name":"Agantuk Sarkar","email":"agantuksarkar124@gmail.com","role":"teacher","image":"profile_pic.jpeg","password":"abcd","assignedStudents":["2f569c20-23b7-4b83-be3d-6f3b6999ef2a","eb1bb79b-d937-4a76-b3ae-869047b5603e"]},{"id":"eb1bb79b-d937-4a76-b3ae-869047b5603e","name":"Shivam Tiwari","email":"shivam@gmail.com","role":"teacher","image":"john_doe_1.jpeg","assignedTeacherId":"199c8922-e1d9-4249-ad1e-dd68a273ef0d","password":"123"}]
+[
+  {
+    "id": "admin-001",
+    "name": "Admin",
+    "email": "admin@gmail.com",
+    "role": "admin",
+    "image": "admin.jpeg",
+    "password": "admin123"
+  },
+  {
+    "id": "199c8922-e1d9-4249-ad1e-dd68a273ef0d",
+    "name": "Agantuk Sarkar",
+    "email": "agantuksarkar124@gmail.com",
+    "role": "teacher",
+    "image": "profile_pic.jpeg",
+    "password": "abcd",
+    "assignedStudents": [
+      "2f569c20-23b7-4b83-be3d-6f3b6999ef2a",
+      "eb1bb79b-d937-4a76-b3ae-869047b5603e",
+      "42c424b6-f2ce-4b31-ae45-b5e42e2843ea"
+    ]
+  },
+  {
+    "id": "eb1bb79b-d937-4a76-b3ae-869047b5603e",
+    "name": "Pablo Escobar",
+    "email": "shivam@gmail.com",
+    "role": "teacher",
+    "image": "john_doe_1.jpeg",
+    "assignedTeacherId": "199c8922-e1d9-4249-ad1e-dd68a273ef0d",
+    "password": "123"
+  },
+  {
+    "id": "42c424b6-f2ce-4b31-ae45-b5e42e2843ea",
+    "name": "Kunal Kapoor",
+    "email": "kunal@gmail.com",
+    "role": "teacher",
+    "image": "john_doe_1.jpeg",
+    "password": "123",
+    "assignedStudents": []
+  }
+]

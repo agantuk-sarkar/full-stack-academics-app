@@ -33,7 +33,7 @@ app.use("/", getUserByIdRoutes);
 // This middleware has two CRUD operations. For GET method it will get users for Roles tab. For PUT or update operation it will update name, email, image and role
 app.use("/", rolesRoutes);
 
-// // Delete a user by using the particular user id
+// Delete a user by using the particular user id
 app.use("/", deleteUserByIdRoutes);
 
 // Starting the server

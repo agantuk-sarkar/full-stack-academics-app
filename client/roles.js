@@ -216,7 +216,7 @@ function userRolesProfiles(userArray) {
               edit_details_modal.style.display = "none";
               modal_backdrop.style.display = "none";
               // reload the user profile grid function
-              showUserProfile();
+              showAssignedUsers();
             } catch (error) {
               console.log("error:", error.message);
             }
@@ -266,7 +266,7 @@ function userRolesProfiles(userArray) {
             throw new Error(data.message || "Failed to delete user");
           }
           // reloading the user profile to show users which are not deleted
-          showUserProfile();
+          showAssignedUsers();
         } catch (error) {
           console.log("error:", error.message);
         }

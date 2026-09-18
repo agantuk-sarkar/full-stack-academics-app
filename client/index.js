@@ -46,19 +46,11 @@ function showMessage(element, message, isError = false) {
 // click event for register button
 if (registerButton) {
   registerButton.addEventListener("click", async () => {
-    // const userData = {
-    //   name: userName.value,
-    //   email: userEmail.value,
-    //   role: role_status.value,
-    //   image: register_image.files[0].name,
-    //   password: userPassword.value,
-    // };
+  
     const name = userName.value;
     const email = userEmail.value;
     const imageFile = register_image.files[0];
     const password = userPassword.value;
-
-    // const { name, email, role, password } = userData;
 
     if (!name || !email || !password || !imageFile) {
       showMessage(messageStatus, "Please fill missing details", true);
@@ -84,7 +76,6 @@ if (registerButton) {
         localStorage.setItem("loggedInUser", JSON.stringify(data.user));
         // routing to academics.html page
         window.location.href = "./academics.html";
-        console.log("window.location.href:", window.location.href);
         return;
       } else {
         showMessage(messageStatus, data.message || "User already exists", true);

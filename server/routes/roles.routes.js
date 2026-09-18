@@ -106,7 +106,7 @@ router.put("/roles/:id", upload.single("imageFile"), (req, res) => {
     user.role = role;
   }
 
-  // make the updated array into JSOn string
+  // make the updated array into JSON string
   writeDatabase(data);
 
   //   success message

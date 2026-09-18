@@ -164,6 +164,10 @@ function userRolesProfiles(userArray) {
           // role input
           const role_input = document.createElement("select");
           role_input.classList.add("role-input");
+          // admin can only update from student to teacher not vice versa
+          if (userEditResponse.role === "teacher") {
+            role_input.disabled = true;
+          }
           // student option
           const student_option = document.createElement("option");
           student_option.value = "student";

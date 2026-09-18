@@ -61,6 +61,7 @@ router.get("/roles/:id/users", (req, res) => {
         return user;
       }
     });
+    // if success
     return res.status(200).json(users_for_admin);
   }
 });

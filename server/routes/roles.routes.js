@@ -45,6 +45,7 @@ router.get("/roles/:id/users", (req, res) => {
   if (logged_in_user.role === "teacher") {
     const assigned_students = data.filter((user) => {
       if (
+        user.role === "student" &&
         logged_in_user.assignedStudents &&
         logged_in_user.assignedStudents.includes(user.id)
       ) {

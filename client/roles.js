@@ -164,10 +164,6 @@ function userRolesProfiles(userArray) {
           // role input
           const role_input = document.createElement("select");
           role_input.classList.add("role-input");
-          // admin can only update from student to teacher not vice versa
-          if (userEditResponse.role === "teacher") {
-            role_input.disabled = true;
-          }
           // student option
           const student_option = document.createElement("option");
           student_option.value = "student";
@@ -178,10 +174,21 @@ function userRolesProfiles(userArray) {
           teacher_option.textContent = "Teacher";
           role_input.append(student_option, teacher_option);
           role_input.value = userEditResponse.role;
-          //   check if teacher is logged in then disable the role select tag
-          if (logged_in_user.role === "teacher") {
+          // Only admin can update the role
+          if (
+            logged_in_user.role === "teacher" ||
+            logged_in_user.role === "student"
+          ) {
             role_input.disabled = true;
           }
+          // Only admin can update the role from student to teacher and not vice versa
+          if (
+            logged_in_user.role === "admin" &&
+            userEditResponse.role === "teacher"
+          ) {
+            role_input.disabled = true;
+          }
+         
           // cancel button
           const cancel_button = document.createElement("button");
           //   click event for cancel button

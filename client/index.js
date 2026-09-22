@@ -46,7 +46,6 @@ function showMessage(element, message, isError = false) {
 // click event for register button
 if (registerButton) {
   registerButton.addEventListener("click", async () => {
-  
     const name = userName.value;
     const email = userEmail.value;
     const imageFile = register_image.files[0];
@@ -295,6 +294,13 @@ function userProfiles(userArray) {
           // role input
           const role_input = document.createElement("select");
           role_input.classList.add("role-input");
+          // // admin can only update from student to teacher not vice versa
+          // if (
+          //   userEditResponse.role === "teacher" ||
+          //   userEditResponse.role === "student"
+          // ) {
+          //   role_input.disabled = true;
+          // }
           // student option
           const student_option = document.createElement("option");
           student_option.value = "student";
@@ -305,6 +311,13 @@ function userProfiles(userArray) {
           teacher_option.textContent = "Teacher";
           role_input.append(student_option, teacher_option);
           role_input.value = userEditResponse.role;
+          // Only admin can update the role
+          if (
+            logged_in_user.role === "teacher" ||
+            logged_in_user.role === "student"
+          ) {
+            role_input.disabled = true;
+          }
           // cancel button
           const cancel_button = document.createElement("button");
           //   click event for cancel button
